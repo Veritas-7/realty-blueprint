@@ -1,15 +1,11 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { routeMeta, notFoundMeta, generateBreadcrumbJsonLd, generateWebSiteJsonLd, SITE_URL } from "@/data/seo-config";
+import { routeMeta, notFoundMeta, generateBreadcrumbJsonLd, generateWebSiteJsonLd, generateRealEstateAgentJsonLd, SITE_URL } from "@/data/seo-config";
 
-interface SEOHeadProps {
-  is404?: boolean;
-}
-
-export const SEOHead = ({ is404 }: SEOHeadProps) => {
+export const SEOHead = () => {
   const location = useLocation();
   const path = location.pathname;
-  const meta = is404 ? notFoundMeta : routeMeta[path];
+  const meta = routeMeta[path] ?? notFoundMeta;
 
   useEffect(() => {
     if (!meta) return;
@@ -62,20 +58,24 @@ export const SEOHead = ({ is404 }: SEOHeadProps) => {
     const existingLd = document.querySelectorAll('script[data-seo-jsonld]');
     existingLd.forEach((el) => el.remove());
 
-    // BreadcrumbList
-    const breadcrumbScript = document.createElement("script");
-    breadcrumbScript.type = "application/ld+json";
-    breadcrumbScript.setAttribute("data-seo-jsonld", "true");
-    breadcrumbScript.textContent = JSON.stringify(generateBreadcrumbJsonLd(canonicalPath, meta.title));
-    document.head.appendChild(breadcrumbScript);
+    const addJsonLd = (data: object) => {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.setAttribute("data-seo-jsonld", "true");
+      script.textContent = JSON.stringify(data);
+      document.head.appendChild(script);
+    };
 
-    // WebSite on home
-    if (path === "/") {
-      const wsScript = document.createElement("script");
-      wsScript.type = "application/ld+json";
-      wsScript.setAttribute("data-seo-jsonld", "true");
-      wsScript.textContent = JSON.stringify(generateWebSiteJsonLd());
-      document.head.appendChild(wsScript);
+    // BreadcrumbList for all pages
+    addJsonLd(generateBreadcrumbJsonLd(canonicalPath, meta.title));
+
+    // Type-specific JSON-LD
+    const types = meta.jsonLdType ?? [];
+    if (types.includes("WebSite")) {
+      addJsonLd(generateWebSiteJsonLd());
+    }
+    if (types.includes("RealEstateAgent")) {
+      addJsonLd(generateRealEstateAgentJsonLd());
     }
 
     return () => {

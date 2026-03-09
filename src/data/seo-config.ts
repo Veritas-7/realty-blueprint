@@ -23,7 +23,7 @@ export const routeMeta: Record<string, RouteMetaConfig> = {
     title: "부동산/공인중개 업종 특성 — RE Guide System",
     description: "부동산/공인중개 홈페이지가 일반 서비스업과 다른 점, 방문자 행동 패턴, 사이트 유형별 차이를 정리합니다.",
     ogImage: DEFAULT_OG_IMAGE,
-    jsonLdType: ["WebPage"],
+    jsonLdType: ["WebPage", "RealEstateAgent"],
   },
   "/design-guide": {
     title: "디자인 가이드 — RE Guide System",
@@ -125,5 +125,16 @@ export function generateWebSiteJsonLd() {
     name: industryConfig.systemNameKo,
     url: SITE_URL,
     description: "부동산/공인중개 업종 홈페이지 제작을 위한 내부 기준서 및 청사진 생성 시스템",
+  };
+}
+
+export function generateRealEstateAgentJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    name: industryConfig.systemNameKo,
+    url: SITE_URL,
+    description: "부동산/공인중개 업종 웹 제작 가이드 및 도구",
+    serviceType: "부동산 중개 웹사이트 제작 가이드",
   };
 }
