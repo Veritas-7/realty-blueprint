@@ -4,6 +4,8 @@ import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge, type BadgeVariant } from "@/components/guide/StatusBadge";
 import { CopyBlock } from "@/components/guide/CopyBlock";
 import { TableOfContents } from "@/components/guide/TableOfContents";
+import { SummaryCard } from "@/components/guide/SummaryCard";
+import { QuickPoints } from "@/components/guide/QuickPoints";
 
 interface TemplateSection {
   name: string;
@@ -119,6 +121,17 @@ const PageTemplates = () => {
       />
       <div className="guide-container">
         <TableOfContents items={tocItems} />
+        <SummaryCard items={[
+          "5개 핵심 페이지 템플릿(홈, 매물리스트, 매물상세, 소개, 상담)과 6개 추가 템플릿",
+          "각 템플릿마다 필수/권장/조건부 섹션, CTA, SEO 포인트, 주의사항 정의",
+          "매물 DB 미보유 시 매물 페이지는 금지 — 상담 전환형으로 구성",
+        ]} />
+        <QuickPoints points={[
+          "홈 히어로에 지역+거래 전문성 필수",
+          "매물 리스트에 날짜 표시로 허위매물 방지",
+          "소개 페이지에 등록정보+대표 정보 필수",
+          "상담 페이지 폼 필드 5개 초과 금지",
+        ]} />
 
         {templates.map((tmpl) => (
           <SectionBlock key={tmpl.title} id={tmpl.id} title={tmpl.title} subtitle={tmpl.description}>

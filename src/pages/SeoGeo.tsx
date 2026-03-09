@@ -3,6 +3,8 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { CopyBlock } from "@/components/guide/CopyBlock";
 import { TableOfContents } from "@/components/guide/TableOfContents";
+import { SummaryCard } from "@/components/guide/SummaryCard";
+import { QuickPoints } from "@/components/guide/QuickPoints";
 
 const tocItems = [
   { id: "meta-examples", title: "페이지별 메타 타이틀/디스크립션 예시" },
@@ -23,6 +25,17 @@ const SeoGeo = () => {
       />
       <div className="guide-container">
         <TableOfContents items={tocItems} />
+        <SummaryCard items={[
+          "메타 타이틀에 지역명+서비스+브랜드 포함 — 검색 유입의 핵심",
+          "RealEstateAgent, FAQPage, BreadcrumbList 등 구조화 데이터 필수 적용",
+          "AI 검색 대응: 질문-답변 구조 + 구체적 지역/거래 정보 + 과장 없는 사실 기반",
+        ]} />
+        <QuickPoints points={[
+          "H1 페이지당 1개, 지역명 포함",
+          "canonical 태그 자기 참조 적용",
+          "지역+거래유형 조합 랜딩 페이지 설계",
+          "404에 noindex 적용",
+        ]} />
 
         <SectionBlock id="meta-examples" title="페이지별 메타 타이틀/디스크립션 예시">
           <CopyBlock label="메타 예시 (예시 데이터)" content={`홈:

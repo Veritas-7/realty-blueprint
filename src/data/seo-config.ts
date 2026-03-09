@@ -138,3 +138,14 @@ export function generateRealEstateAgentJsonLd() {
     serviceType: "부동산 중개 웹사이트 제작 가이드",
   };
 }
+
+export function generateWebPageJsonLd(path: string, meta: RouteMetaConfig) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: meta.title,
+    description: meta.description,
+    url: `${SITE_URL}${path}`,
+    isPartOf: { "@type": "WebSite", url: SITE_URL },
+  };
+}

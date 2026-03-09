@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { PageHeader } from "@/components/guide/PageHeader";
 import { SectionBlock } from "@/components/guide/SectionBlock";
+import { SummaryCard } from "@/components/guide/SummaryCard";
+import { QuickPoints } from "@/components/guide/QuickPoints";
 import { navItems } from "@/data/navigation";
 import { ArrowRight, Phone, MessageCircle, MapPin, Shield, TrendingUp, Users } from "lucide-react";
 
@@ -12,6 +14,17 @@ const Index = () => {
         description="부동산/공인중개 업종 홈페이지를 빠르고 정확하게 제작하기 위한 내부 기준서, 고객사 브리프 도구, 사이트 청사진 생성 시스템입니다."
       />
       <div className="guide-container">
+        <SummaryCard items={[
+          "부동산 사이트의 핵심은 신뢰 형성 → 지역 전문성 전달 → 상담 전환",
+          "브리프 입력 → 청사진 생성 → 구현 규칙 도출까지 자동화된 제작 시스템",
+          "모든 가이드와 도구는 부동산/공인중개 업종에 특화되어 있음",
+        ]} />
+        <QuickPoints points={[
+          "Client Brief부터 작성 시작",
+          "Site Blueprint로 페이지 구조 자동 생성",
+          "Implementation Rules로 제작 규칙 도출",
+          "Checklist로 최종 검수",
+        ]} />
         {/* 핵심 특성 요약 */}
         <SectionBlock title="부동산/공인중개 홈페이지의 핵심" subtitle="이 업종 사이트에서 가장 중요한 3가지">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

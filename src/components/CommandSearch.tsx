@@ -48,8 +48,23 @@ export const CommandSearch = () => {
         <CommandInput placeholder="페이지 검색..." />
         <CommandList>
           <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
-          <CommandGroup heading="페이지">
-            {navItems.map((item) => (
+          <CommandGroup heading="가이드">
+            {navItems.slice(0, 10).map((item) => (
+              <CommandItem
+                key={item.path}
+                value={`${item.title} ${item.description} ${item.keywords.join(" ")}`}
+                onSelect={() => handleSelect(item.path)}
+              >
+                <item.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                <div>
+                  <span className="font-medium">{item.title}</span>
+                  <span className="ml-2 text-muted-foreground text-xs">{item.description}</span>
+                </div>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+          <CommandGroup heading="도구">
+            {navItems.slice(10).map((item) => (
               <CommandItem
                 key={item.path}
                 value={`${item.title} ${item.description} ${item.keywords.join(" ")}`}

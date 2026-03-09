@@ -3,6 +3,8 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge } from "@/components/guide/StatusBadge";
 import { TableOfContents } from "@/components/guide/TableOfContents";
+import { SummaryCard } from "@/components/guide/SummaryCard";
+import { QuickPoints } from "@/components/guide/QuickPoints";
 
 const tocItems = [
   { id: "diff", title: "일반 서비스업과 다른 점" },
@@ -23,6 +25,17 @@ const IndustryOverview = () => {
       />
       <div className="guide-container">
         <TableOfContents items={tocItems} />
+        <SummaryCard items={[
+          "부동산 사이트는 지역 기반 + 고액 거래 + 법적 등록 정보 필수라는 고유 특성을 가짐",
+          "온라인 전환은 '상담'이며, 전화·카카오·방문이 최종 목표",
+          "허위매물/과장 표현은 신뢰를 즉시 파괴하는 핵심 실패 요인",
+        ]} />
+        <QuickPoints points={[
+          "히어로에 지역+거래 전문성 즉시 노출",
+          "모바일 하단 CTA 바 필수 적용",
+          "등록정보/대표 정보 조기 노출",
+          "오래된 매물 날짜 표시 필수",
+        ]} />
 
         <SectionBlock id="diff" title="일반 서비스업과 다른 점" subtitle="부동산 사이트만의 고유 특성">
           <div className="space-y-3">

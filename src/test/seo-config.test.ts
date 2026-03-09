@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { routeMeta, notFoundMeta, SITE_URL, generateBreadcrumbJsonLd, generateWebSiteJsonLd, generateRealEstateAgentJsonLd } from "@/data/seo-config";
+import { routeMeta, notFoundMeta, SITE_URL, generateBreadcrumbJsonLd, generateWebSiteJsonLd, generateRealEstateAgentJsonLd, generateWebPageJsonLd } from "@/data/seo-config";
 import { navItems } from "@/data/navigation";
 
 describe("seo-config", () => {
@@ -84,5 +84,24 @@ describe("seo-config", () => {
     const result = generateBreadcrumbJsonLd("/design-guide", "디자인 가이드");
     expect(result.itemListElement[0].item).toMatch(/^https:\/\//);
     expect(result.itemListElement[1].item).toMatch(/^https:\/\//);
+  });
+
+  it("generateWebPageJsonLd returns WebPage type with correct URL", () => {
+    const meta = routeMeta["/design-guide"];
+    const result = generateWebPageJsonLd("/design-guide", meta);
+    expect(result["@type"]).toBe("WebPage");
+    expect(result.url).toBe(`${SITE_URL}/design-guide`);
+    expect(result.name).toBe(meta.title);
+    expect(result.isPartOf["@type"]).toBe("WebSite");
+  });
+
+  it("all WebPage jsonLdType routes would generate valid WebPage JSON-LD", () => {
+    for (const [path, meta] of Object.entries(routeMeta)) {
+      if (meta.jsonLdType?.includes("WebPage")) {
+        const result = generateWebPageJsonLd(path, meta);
+        expect(result["@type"]).toBe("WebPage");
+        expect(result.url).toContain(path);
+      }
+    }
   });
 });

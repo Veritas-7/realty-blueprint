@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { routeMeta, notFoundMeta, generateBreadcrumbJsonLd, generateWebSiteJsonLd, generateRealEstateAgentJsonLd, SITE_URL } from "@/data/seo-config";
+import { routeMeta, notFoundMeta, generateBreadcrumbJsonLd, generateWebSiteJsonLd, generateRealEstateAgentJsonLd, generateWebPageJsonLd, SITE_URL } from "@/data/seo-config";
 
 export const SEOHead = () => {
   const location = useLocation();
@@ -73,6 +73,9 @@ export const SEOHead = () => {
     const types = meta.jsonLdType ?? [];
     if (types.includes("WebSite")) {
       addJsonLd(generateWebSiteJsonLd());
+    }
+    if (types.includes("WebPage")) {
+      addJsonLd(generateWebPageJsonLd(canonicalPath, meta));
     }
     if (types.includes("RealEstateAgent")) {
       addJsonLd(generateRealEstateAgentJsonLd());
