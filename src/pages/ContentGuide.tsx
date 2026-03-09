@@ -4,6 +4,8 @@ import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge } from "@/components/guide/StatusBadge";
 import { CopyBlock } from "@/components/guide/CopyBlock";
 import { TableOfContents } from "@/components/guide/TableOfContents";
+import { SummaryCard } from "@/components/guide/SummaryCard";
+import { QuickPoints } from "@/components/guide/QuickPoints";
 
 const tocItems = [
   { id: "tone", title: "신뢰를 높이는 문장 톤" },
