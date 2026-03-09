@@ -3,6 +3,8 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge } from "@/components/guide/StatusBadge";
 import { TableOfContents } from "@/components/guide/TableOfContents";
+import { SummaryCard } from "@/components/guide/SummaryCard";
+import { QuickPoints } from "@/components/guide/QuickPoints";
 
 const tocItems = [
   { id: "diff", title: "일반 서비스업과 다른 점" },
