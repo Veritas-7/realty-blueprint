@@ -13,6 +13,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Building2 } from "lucide-react";
+import { industryConfig } from "@/data/industry-config";
 
 export function AppSidebar() {
   const { state } = useSidebar();
