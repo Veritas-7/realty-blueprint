@@ -26,6 +26,17 @@ const ContentGuide = () => {
       />
       <div className="guide-container">
         <TableOfContents items={tocItems} />
+        <SummaryCard items={[
+          "구체적 지역명 + 거래유형 중심 카피, 과장·단정 표현 금지",
+          "CTA 문구는 '전화 상담하기', '카카오로 문의'처럼 구체적 행동 기술",
+          "수익 보장·무조건 상승·압박형 표현은 업종 특성상 절대 금지",
+        ]} />
+        <QuickPoints points={[
+          "히어로 카피: [지역명] [거래유형] 전문",
+          "서비스 톤: ~해드립니다, ~안내합니다",
+          "FAQ는 상담 비용·전세사기·상담시간 필수",
+          "모든 예시 데이터에 '예시' 표기",
+        ]} />
 
         <SectionBlock id="tone" title="신뢰를 높이는 문장 톤" subtitle="부동산 업종 카피의 핵심 방향">
           <div className="guide-card">

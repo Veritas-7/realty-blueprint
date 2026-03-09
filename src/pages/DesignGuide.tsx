@@ -27,6 +27,17 @@ const DesignGuide = () => {
       />
       <div className="guide-container">
         <TableOfContents items={tocItems} />
+        <SummaryCard items={[
+          "부동산 사이트는 '투자 광고'가 아닌 '전문 중개 안내서' 톤을 유지",
+          "신뢰감 있는 Deep Navy + Teal 계열 메인 팔레트 사용",
+          "과장된 럭셔리/네온/골드 시각 표현 금지",
+        ]} />
+        <QuickPoints points={[
+          "CSS Custom Properties로 컬러 토큰 관리",
+          "H1~Label까지 6단계 타이포 위계 준수",
+          "실제 사무소/대표 사진 사용 권장",
+          "라인 아이콘(Lucide) 스타일 통일",
+        ]} />
 
         <SectionBlock id="brand-tone" title="브랜드 톤 정의" subtitle="부동산 업종에 맞는 비주얼 키워드">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

@@ -26,6 +26,17 @@ const UXGuide = () => {
       />
       <div className="guide-container">
         <TableOfContents items={tocItems} />
+        <SummaryCard items={[
+          "방문자 여정: 검색 유입 → 지역 확인 → 매물/서비스 탐색 → 신뢰 확인 → 상담 전환",
+          "첫 화면(Above the fold)에 지역·거래·CTA 3가지 필수 전달",
+          "모바일 전화 원터치 연결과 하단 CTA 고정이 최우선 UX",
+        ]} />
+        <QuickPoints points={[
+          "히어로에 핵심 CTA 1~2개 배치",
+          "폼 필드 3개 이하 권장",
+          "압박형 CTA(팝업·강제 폼) 금지",
+          "마이크로카피에 구체적 행동 기술",
+        ]} />
 
         <SectionBlock id="user-journey" title="대표 사용자 여정" subtitle="첫 방문부터 상담 전환까지">
           <div className="guide-card">

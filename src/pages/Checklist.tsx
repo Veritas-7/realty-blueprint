@@ -156,6 +156,7 @@ const Checklist = () => {
           "허위 매물/후기 없는지 필수 점검",
           "런칭 전 SSL·Search Console 등록",
         ]} />
+        {sections.map((section, sIdx) => {
           const progress = getProgress(section);
           return (
             <SectionBlock key={section.title} id={`check-${sIdx}`} title={section.title} subtitle={`${progress.checked}/${progress.total} 완료 (${progress.pct}%)`}>

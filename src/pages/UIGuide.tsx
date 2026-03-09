@@ -49,6 +49,17 @@ const UIGuide = () => {
       />
       <div className="guide-container">
         <TableOfContents items={tocItems} />
+        <SummaryCard items={[
+          "14개 핵심 UI 컴포넌트 — 각각 사용 목적/배치/금지 사항 정의됨",
+          "모바일 하단 고정 CTA 바는 모든 모바일 페이지 필수",
+          "폼 필드 5개 초과 금지, 접근성(WCAG) 기본 대비 충족 필수",
+        ]} />
+        <QuickPoints points={[
+          "상단 정보 바에 전화/상담시간 노출",
+          "Primary 버튼은 CTA 전용",
+          "매물 카드는 매물 DB 보유 시에만",
+          "FAQ는 3개 이상일 때 아코디언 사용",
+        ]} />
 
         <SectionBlock id="ui-components" title="핵심 UI 컴포넌트 목록" subtitle="각 컴포넌트의 사용 가이드">
           <div className="space-y-4">
