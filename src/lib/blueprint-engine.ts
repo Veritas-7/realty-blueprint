@@ -440,5 +440,21 @@ ${brief.prohibitedExpressions ? `- 금지 표현: ${brief.prohibitedExpressions}
 - 모든 페이지에 등록정보/사업자정보 포함 (푸터)
 - 허위 증빙(후기, 경력, 거래건수) 절대 생성 금지
 - 매물 DB 미보유 시 매물 페이지 생성 금지
-- 히어로에 "${region} ${brief.transactionTypes.join("·")} 전문" 메시지 필수`;
+- 히어로에 "${region} ${brief.transactionTypes.join("·")} 전문" 메시지 필수
+${isBunyang ? `
+### 9. 분양 관련 지침
+- 분양 상담 전용 페이지 포함
+- 분양 일정·평형·가격 안내 섹션 필수
+- 모델하우스 안내 CTA 배치
+- 분양가 보장·수익률 단정 표현 금지` : ""}
+${brief.branchType === "multi" ? `
+### ${isBunyang ? "10" : "9"}. 다지점 지침
+- 홈에서 지점 선택 UI 필수
+- 각 지점별 연락처·주소·담당자 표시
+- 지점별 매물 분리 고려` : ""}
+${missingAssets !== "없음" ? `
+### ${isBunyang ? (brief.branchType === "multi" ? "11" : "10") : (brief.branchType === "multi" ? "10" : "9")}. 자산 부족 대체 지침
+- 부족 자산에 대해 위 7번의 대체안을 반드시 적용
+- 없는 자산을 허위로 생성하지 말 것
+- 대체안도 적용 불가 시 해당 섹션 생략` : ""}`;
 }
