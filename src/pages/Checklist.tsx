@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PageHeader } from "@/components/guide/PageHeader";
 import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
+import { TableOfContents } from "@/components/guide/TableOfContents";
 import { Check } from "lucide-react";
 
 interface CheckItem {
