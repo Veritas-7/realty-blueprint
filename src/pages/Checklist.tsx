@@ -146,7 +146,7 @@ const Checklist = () => {
         {sections.map((section, sIdx) => {
           const progress = getProgress(section);
           return (
-            <SectionBlock key={section.title} title={section.title} subtitle={`${progress.checked}/${progress.total} 완료 (${progress.pct}%)`}>
+            <SectionBlock key={section.title} id={`check-${sIdx}`} title={section.title} subtitle={`${progress.checked}/${progress.total} 완료 (${progress.pct}%)`}>
               <div className="mb-2">
                 <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
                   <div className="h-full bg-trust rounded-full transition-all duration-300" style={{ width: `${progress.pct}%` }} />
