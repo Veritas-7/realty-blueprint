@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { StatusBadge, type BadgeVariant } from "./StatusBadge";
+import { routeMeta } from "@/data/seo-config";
 
 interface PageHeaderProps {
   title: string;
@@ -8,9 +10,12 @@ interface PageHeaderProps {
 }
 
 export const PageHeader = ({ title, description, badges }: PageHeaderProps) => {
+  const location = useLocation();
+
   useEffect(() => {
-    document.title = `${title} — 부동산/공인중개 웹 제작 가이드`;
-  }, [title]);
+    const meta = routeMeta[location.pathname];
+    document.title = meta?.title ?? `${title} — 부동산/공인중개 웹 제작 가이드`;
+  }, [title, location.pathname]);
 
   return (
     <div className="border-b border-border bg-card px-4 sm:px-6 lg:px-8 py-8">

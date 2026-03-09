@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
+import { CommandSearch } from "@/components/CommandSearch";
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -13,6 +14,9 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
             <span className="ml-3 text-sm font-semibold text-foreground tracking-tight">
               부동산/공인중개 웹 제작 가이드 시스템
             </span>
+            <div className="ml-auto mr-3">
+              <CommandSearch />
+            </div>
           </header>
           <main className="flex-1 overflow-auto">
             {children}
