@@ -3,6 +3,8 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { CopyBlock } from "@/components/guide/CopyBlock";
 import { TableOfContents } from "@/components/guide/TableOfContents";
+import { SummaryCard } from "@/components/guide/SummaryCard";
+import { QuickPoints } from "@/components/guide/QuickPoints";
 
 const tocItems = [
   { id: "meta-examples", title: "페이지별 메타 타이틀/디스크립션 예시" },
