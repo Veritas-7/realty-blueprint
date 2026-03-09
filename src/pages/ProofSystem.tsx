@@ -3,6 +3,7 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge, type BadgeVariant } from "@/components/guide/StatusBadge";
 import { SummaryCard } from "@/components/guide/SummaryCard";
+import { TableOfContents } from "@/components/guide/TableOfContents";
 import { useBrief } from "@/hooks/use-brief";
 import { getProofStatuses } from "@/lib/brief-analysis";
 import { Link } from "react-router-dom";
