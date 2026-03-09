@@ -30,7 +30,7 @@ export function AppSidebar() {
           <Building2 className="h-6 w-6 text-sidebar-primary flex-shrink-0" />
           {!collapsed && (
             <span className="text-sm font-bold text-sidebar-primary leading-tight">
-              RE Guide System
+              {industryConfig.systemName}
             </span>
           )}
         </div>

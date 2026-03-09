@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { routeMeta, notFoundMeta, generateBreadcrumbJsonLd, generateWebSiteJsonLd } from "@/data/seo-config";
+import { routeMeta, notFoundMeta, generateBreadcrumbJsonLd, generateWebSiteJsonLd, SITE_URL } from "@/data/seo-config";
 
 interface SEOHeadProps {
   is404?: boolean;
@@ -27,12 +27,20 @@ export const SEOHead = ({ is404 }: SEOHeadProps) => {
       el.setAttribute("content", content);
     };
 
+    const canonicalPath = meta.canonicalPath ?? path;
+    const absoluteUrl = `${SITE_URL}${canonicalPath}`;
+    const absoluteOgImage = meta.ogImage ? `${SITE_URL}${meta.ogImage}` : `${SITE_URL}/og-image.svg`;
+
     setMeta("description", meta.description);
     setMeta("og:title", meta.title, true);
     setMeta("og:description", meta.description, true);
-    setMeta("og:url", path, true);
+    setMeta("og:url", absoluteUrl, true);
+    setMeta("og:image", absoluteOgImage, true);
+    setMeta("og:type", "website", true);
     setMeta("twitter:title", meta.title);
     setMeta("twitter:description", meta.description);
+    setMeta("twitter:image", absoluteOgImage);
+    setMeta("twitter:card", "summary_large_image");
 
     if (meta.robots) {
       setMeta("robots", meta.robots);
@@ -48,7 +56,7 @@ export const SEOHead = ({ is404 }: SEOHeadProps) => {
       canonical.setAttribute("rel", "canonical");
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute("href", path);
+    canonical.setAttribute("href", absoluteUrl);
 
     // JSON-LD
     const existingLd = document.querySelectorAll('script[data-seo-jsonld]');
@@ -58,7 +66,7 @@ export const SEOHead = ({ is404 }: SEOHeadProps) => {
     const breadcrumbScript = document.createElement("script");
     breadcrumbScript.type = "application/ld+json";
     breadcrumbScript.setAttribute("data-seo-jsonld", "true");
-    breadcrumbScript.textContent = JSON.stringify(generateBreadcrumbJsonLd(path, meta.title));
+    breadcrumbScript.textContent = JSON.stringify(generateBreadcrumbJsonLd(canonicalPath, meta.title));
     document.head.appendChild(breadcrumbScript);
 
     // WebSite on home

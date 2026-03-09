@@ -13,7 +13,7 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
           <header className="h-12 flex items-center border-b border-border bg-background sticky top-0 z-30">
             <SidebarTrigger className="ml-3" />
             <span className="ml-3 text-sm font-semibold text-foreground tracking-tight">
-              부동산/공인중개 웹 제작 가이드 시스템
+              {industryConfig.systemNameKo}
             </span>
             <div className="ml-auto mr-3">
               <CommandSearch />
