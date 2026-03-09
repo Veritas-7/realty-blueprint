@@ -4,6 +4,8 @@ import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge } from "@/components/guide/StatusBadge";
 import { CopyBlock } from "@/components/guide/CopyBlock";
 import { TableOfContents } from "@/components/guide/TableOfContents";
+import { SummaryCard } from "@/components/guide/SummaryCard";
+import { QuickPoints } from "@/components/guide/QuickPoints";
 
 const tocItems = [
   { id: "brand-tone", title: "브랜드 톤 정의" },
