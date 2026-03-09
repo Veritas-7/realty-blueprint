@@ -42,4 +42,22 @@ describe("blueprint-engine", () => {
     const blueprints = getAllBlueprints(defaultBrief);
     expect(blueprints.some((b) => b.pageTitle === "매물 리스트")).toBe(false);
   });
+
+  it("includes bunyang blueprint when propertyCategories includes 분양", () => {
+    const bunyangBrief = { ...exampleBrief, propertyCategories: ["분양"] };
+    const blueprints = getAllBlueprints(bunyangBrief);
+    expect(blueprints.some((b) => b.pageTitle === "분양/신축 상담")).toBe(true);
+  });
+
+  it("excludes bunyang blueprint when no 분양 category", () => {
+    const blueprints = getAllBlueprints(exampleBrief);
+    expect(blueprints.some((b) => b.pageTitle === "분양/신축 상담")).toBe(false);
+  });
+
+  it("lovable prompt includes structured sections", () => {
+    const prompt = generateLovablePrompt(exampleBrief);
+    expect(prompt).toContain("### 1. 사이트 개요");
+    expect(prompt).toContain("### 4. 페이지 구성");
+    expect(prompt).toContain("### 8. 핵심 규칙");
+  });
 });

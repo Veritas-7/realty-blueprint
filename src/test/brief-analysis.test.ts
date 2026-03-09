@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { determineSiteType, classifyPages, getProofStatuses, getBudgetTiers, CORE_BLOCKS } from "@/lib/brief-analysis";
+import { determineSiteType, classifyPages, getProofStatuses, getBudgetTiers, getRemovableBlocks, getAssetCompleteness, CORE_BLOCKS } from "@/lib/brief-analysis";
 import { defaultBrief, exampleBrief } from "@/data/briefSchema";
 
 describe("brief-analysis", () => {
@@ -49,5 +49,28 @@ describe("brief-analysis", () => {
 
   it("has core blocks defined", () => {
     expect(CORE_BLOCKS.length).toBeGreaterThan(0);
+  });
+
+  it("getRemovableBlocks returns empty for full brief", () => {
+    const blocks = getRemovableBlocks(exampleBrief);
+    expect(blocks.length).toBe(0);
+  });
+
+  it("getRemovableBlocks returns blocks for minimal brief", () => {
+    const blocks = getRemovableBlocks(defaultBrief);
+    expect(blocks.length).toBeGreaterThan(0);
+    expect(blocks.some((b) => b.name.includes("매물"))).toBe(true);
+  });
+
+  it("getAssetCompleteness returns 100% for full brief", () => {
+    const result = getAssetCompleteness(exampleBrief);
+    expect(result.pct).toBe(100);
+    expect(result.owned).toBe(result.total);
+  });
+
+  it("getAssetCompleteness returns 0% for default brief", () => {
+    const result = getAssetCompleteness(defaultBrief);
+    expect(result.pct).toBe(0);
+    expect(result.owned).toBe(0);
   });
 });

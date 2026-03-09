@@ -11,7 +11,7 @@ import { AlertTriangle, Info } from "lucide-react";
 interface ProofItem {
   name: string;
   level: "강한 증빙" | "보조 증빙";
-  pages: string;
+  pages: string[];
   nearCTA: string;
   fallback: string;
   prohibited: string;
@@ -20,15 +20,22 @@ interface ProofItem {
 }
 
 const proofItems: ProofItem[] = [
-  { name: "공인중개사 등록정보", level: "강한 증빙", pages: "홈, 소개, 푸터", nearCTA: "모든 상담 CTA", fallback: "사업자등록정보", prohibited: "허위 등록번호", badge: "required", briefField: "hasRegistrationInfo" },
-  { name: "대표 공인중개사 프로필", level: "강한 증빙", pages: "홈, 소개", nearCTA: "전화/방문 CTA", fallback: "사무소 소개로 대체", prohibited: "허위 경력·자격", badge: "required", briefField: "hasRepresentativeInfo" },
-  { name: "지역 전문성 (경험·기간)", level: "강한 증빙", pages: "홈 히어로, 소개", nearCTA: "상담 CTA", fallback: "지역 콘텐츠로 간접 증명", prohibited: "허위 경력 기간", badge: "recommended", briefField: "hasRegionalContent" },
-  { name: "실제 거래 사례", level: "강한 증빙", pages: "홈, 후기", nearCTA: "상담 CTA", fallback: "고객 후기", prohibited: "허위 거래 건수·금액", badge: "conditional", briefField: "hasListings" },
-  { name: "고객 후기", level: "보조 증빙", pages: "홈, 후기 페이지", nearCTA: "문의 CTA", fallback: "거래 사례 또는 생략", prohibited: "허위 후기 작성", badge: "conditional", briefField: "hasReviews" },
-  { name: "사무소/지점 사진", level: "보조 증빙", pages: "소개, 오시는길", nearCTA: "방문 CTA", fallback: "지도 캡처", prohibited: "타 사무소 사진 도용", badge: "recommended", briefField: "hasOfficePhotos" },
-  { name: "상담 프로세스 안내", level: "보조 증빙", pages: "상담페이지, 홈", nearCTA: "문의/전화 CTA", fallback: "FAQ로 대체", prohibited: "-", badge: "recommended" },
-  { name: "지역 시세/분석 콘텐츠", level: "보조 증빙", pages: "블로그, 홈", nearCTA: "상담 CTA", fallback: "생략 가능", prohibited: "허위 시세, 투기 조장", badge: "optional", briefField: "hasRegionalContent" },
-  { name: "FAQ/운영 정책", level: "보조 증빙", pages: "홈 하단, 상담", nearCTA: "문의 CTA", fallback: "생략 가능", prohibited: "-", badge: "recommended" },
+  { name: "공인중개사 등록정보", level: "강한 증빙", pages: ["홈", "소개", "푸터"], nearCTA: "모든 상담 CTA", fallback: "사업자등록정보", prohibited: "허위 등록번호", badge: "required", briefField: "hasRegistrationInfo" },
+  { name: "대표 공인중개사 프로필", level: "강한 증빙", pages: ["홈", "소개"], nearCTA: "전화/방문 CTA", fallback: "사무소 소개로 대체", prohibited: "허위 경력·자격", badge: "required", briefField: "hasRepresentativeInfo" },
+  { name: "지역 전문성 (경험·기간)", level: "강한 증빙", pages: ["홈 히어로", "소개"], nearCTA: "상담 CTA", fallback: "지역 콘텐츠로 간접 증명", prohibited: "허위 경력 기간", badge: "recommended", briefField: "hasRegionalContent" },
+  { name: "실제 거래 사례", level: "강한 증빙", pages: ["홈", "후기"], nearCTA: "상담 CTA", fallback: "고객 후기", prohibited: "허위 거래 건수·금액", badge: "conditional", briefField: "hasListings" },
+  { name: "고객 후기", level: "보조 증빙", pages: ["홈", "후기 페이지"], nearCTA: "문의 CTA", fallback: "거래 사례 또는 생략", prohibited: "허위 후기 작성", badge: "conditional", briefField: "hasReviews" },
+  { name: "사무소/지점 사진", level: "보조 증빙", pages: ["소개", "오시는길"], nearCTA: "방문 CTA", fallback: "지도 캡처", prohibited: "타 사무소 사진 도용", badge: "recommended", briefField: "hasOfficePhotos" },
+  { name: "상담 프로세스 안내", level: "보조 증빙", pages: ["상담페이지", "홈"], nearCTA: "문의/전화 CTA", fallback: "FAQ로 대체", prohibited: "-", badge: "recommended" },
+  { name: "지역 시세/분석 콘텐츠", level: "보조 증빙", pages: ["블로그", "홈"], nearCTA: "상담 CTA", fallback: "생략 가능", prohibited: "허위 시세, 투기 조장", badge: "optional", briefField: "hasRegionalContent" },
+  { name: "FAQ/운영 정책", level: "보조 증빙", pages: ["홈 하단", "상담"], nearCTA: "문의 CTA", fallback: "생략 가능", prohibited: "-", badge: "recommended" },
+];
+
+const DEFICIENCY_COMBOS: { condition: string; combo: string }[] = [
+  { condition: "대표 정보 + 후기 모두 부족", combo: "등록정보 + FAQ + 상담 프로세스 안내로 신뢰 구축" },
+  { condition: "대표 정보 + 사무소 사진 부족", combo: "등록정보 + 지도 임베드 + 지역 전문성 텍스트로 대체" },
+  { condition: "매물 DB + 지역 콘텐츠 부족", combo: "서비스 안내 + 상담 CTA 중심 원페이지 구성" },
+  { condition: "후기 + 지역 콘텐츠 부족", combo: "FAQ 강화 + 등록정보 강조 + 상담 프로세스 안내" },
 ];
 
 const getStatusFromBrief = (briefField: string | undefined, brief: Record<string, unknown>): "보유" | "부족" | "비공개" | "검토 필요" => {
@@ -51,6 +58,25 @@ const ProofSystem = () => {
   const hasBrief = !error && brief;
   const proofStatuses = hasBrief ? getProofStatuses(brief) : null;
   const ownedCount = proofStatuses?.filter((p) => p.status === "보유").length ?? 0;
+  const deficientCount = proofStatuses?.filter((p) => p.status === "부족").length ?? 0;
+
+  // Build page-to-proof mapping
+  const pageProofMap: Record<string, string[]> = {};
+  proofItems.forEach((item) => {
+    item.pages.forEach((page) => {
+      if (!pageProofMap[page]) pageProofMap[page] = [];
+      pageProofMap[page].push(item.name);
+    });
+  });
+
+  // Determine applicable deficiency combos
+  const applicableCombos = hasBrief ? DEFICIENCY_COMBOS.filter((combo) => {
+    if (combo.condition === "대표 정보 + 후기 모두 부족") return !brief.hasRepresentativeInfo && !brief.hasReviews;
+    if (combo.condition === "대표 정보 + 사무소 사진 부족") return !brief.hasRepresentativeInfo && !brief.hasOfficePhotos;
+    if (combo.condition === "매물 DB + 지역 콘텐츠 부족") return !brief.hasListings && !brief.hasRegionalContent;
+    if (combo.condition === "후기 + 지역 콘텐츠 부족") return !brief.hasReviews && !brief.hasRegionalContent;
+    return false;
+  }) : [];
 
   return (
     <>
@@ -62,7 +88,7 @@ const ProofSystem = () => {
         {hasBrief && (
           <SummaryCard items={[
             `보유 자산: ${ownedCount}/${proofStatuses!.length}개`,
-            `부족 자산: ${proofStatuses!.filter((p) => p.status === "부족").length}개 — 대체안 적용 필요`,
+            `부족 자산: ${deficientCount}개 — 대체안 적용 필요`,
             "아래 카탈로그에서 각 증빙 요소의 브리프 기반 상태를 확인하세요.",
           ]} />
         )}
@@ -93,7 +119,7 @@ const ProofSystem = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div className="space-y-1">
-                      <p className="text-muted-foreground"><strong className="text-foreground">배치 페이지:</strong> {item.pages}</p>
+                      <p className="text-muted-foreground"><strong className="text-foreground">배치 페이지:</strong> {item.pages.join(", ")}</p>
                       <p className="text-muted-foreground"><strong className="text-foreground">CTA 근처:</strong> {item.nearCTA}</p>
                     </div>
                     <div className="space-y-1">
@@ -112,23 +138,54 @@ const ProofSystem = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock id="proof-placement" title="페이지별 Proof 배치 규칙">
+        <SectionBlock id="proof-placement" title="페이지별 Proof 배치 규칙" subtitle="각 페이지에 필요한 증빙 요소">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {[
-              { page: "홈", proofs: "등록정보, 대표 프로필, 지역 전문성, 후기" },
-              { page: "소개", proofs: "대표 프로필, 등록정보, 사무소 사진, 전문 분야" },
-              { page: "매물 리스트", proofs: "등록정보 (푸터), 매물 갱신 날짜" },
-              { page: "상담/문의", proofs: "상담 프로세스, 등록정보, FAQ" },
-              { page: "오시는 길", proofs: "사무소 사진, 지도, 상담시간" },
-              { page: "후기", proofs: "실제 후기 (허위 금지)" },
-            ].map((item) => (
-              <div key={item.page} className="p-3 bg-muted rounded-md">
-                <strong className="text-foreground text-sm">{item.page}</strong>
-                <p className="text-xs text-muted-foreground mt-0.5">{item.proofs}</p>
+            {Object.entries(pageProofMap).map(([page, proofs]) => (
+              <div key={page} className="p-3 bg-muted rounded-md">
+                <strong className="text-foreground text-sm">{page}</strong>
+                <ul className="mt-1 space-y-0.5">
+                  {proofs.map((proof) => {
+                    const proofItem = proofItems.find((p) => p.name === proof);
+                    const status = hasBrief && proofItem?.briefField ? getStatusFromBrief(proofItem.briefField, brief as unknown as Record<string, unknown>) : null;
+                    return (
+                      <li key={proof} className="text-xs text-muted-foreground flex items-center gap-1">
+                        <span>•</span> {proof}
+                        {status && (
+                          <span className={`text-[10px] px-1 rounded ${status === "보유" ? "bg-primary/10 text-primary" : "bg-warning/10 text-warning"}`}>
+                            {status}
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             ))}
           </div>
         </SectionBlock>
+
+        {/* Deficiency alternatives */}
+        {hasBrief && deficientCount > 0 && (
+          <SectionBlock id="deficiency-combos" title="Proof 부족 시 대체 조합" subtitle="복수 자산 부족 시 권장 대체 전략">
+            {applicableCombos.length > 0 ? (
+              <div className="space-y-3">
+                {applicableCombos.map((combo, i) => (
+                  <div key={i} className="guide-card border-warning/20">
+                    <div className="flex items-start gap-2">
+                      <AlertTriangle className="h-4 w-4 text-warning flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-sm font-medium text-foreground">{combo.condition}</p>
+                        <p className="text-xs text-muted-foreground mt-1">→ {combo.combo}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">부족 자산이 있지만 복합 대체 조합이 필요한 경우는 아닙니다. 개별 대체안을 참고하세요.</p>
+            )}
+          </SectionBlock>
+        )}
 
         <SectionBlock id="status-system" title="증빙 상태 체계" subtitle="고객사 자산 현황 파악용">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

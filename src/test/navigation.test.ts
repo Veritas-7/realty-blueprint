@@ -23,4 +23,11 @@ describe("navigation", () => {
   it("has correct number of nav items", () => {
     expect(navItems.length).toBe(13);
   });
+
+  it("tool routes have noindex in SEO config", () => {
+    const toolPaths = ["/client-brief", "/site-blueprint", "/implementation-rules"];
+    for (const path of toolPaths) {
+      expect(routeMeta[path].robots, `${path} should have noindex`).toContain("noindex");
+    }
+  });
 });

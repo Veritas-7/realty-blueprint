@@ -13,6 +13,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Building2 } from "lucide-react";
+import { industryConfig } from "@/data/industry-config";
 
 export function AppSidebar() {
   const { state } = useSidebar();
@@ -29,7 +30,7 @@ export function AppSidebar() {
           <Building2 className="h-6 w-6 text-sidebar-primary flex-shrink-0" />
           {!collapsed && (
             <span className="text-sm font-bold text-sidebar-primary leading-tight">
-              RE Guide System
+              {industryConfig.systemName}
             </span>
           )}
         </div>
