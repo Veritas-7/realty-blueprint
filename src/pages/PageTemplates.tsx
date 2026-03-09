@@ -3,6 +3,7 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge, type BadgeVariant } from "@/components/guide/StatusBadge";
 import { CopyBlock } from "@/components/guide/CopyBlock";
+import { TableOfContents } from "@/components/guide/TableOfContents";
 
 interface TemplateSection {
   name: string;
@@ -11,6 +12,7 @@ interface TemplateSection {
 }
 
 interface PageTemplate {
+  id: string;
   title: string;
   description: string;
   sections: TemplateSection[];
@@ -21,6 +23,7 @@ interface PageTemplate {
 
 const templates: PageTemplate[] = [
   {
+    id: "homepage",
     title: "홈페이지 템플릿",
     description: "첫 방문자에게 지역·거래 전문성, 신뢰, 상담 경로를 모두 전달하는 랜딩 페이지",
     sections: [
@@ -39,6 +42,7 @@ const templates: PageTemplate[] = [
     caution: "히어로에서 지역·거래 전문 분야가 명확하지 않으면 즉시 이탈",
   },
   {
+    id: "listing-list",
     title: "매물 리스트 페이지 템플릿",
     description: "매물을 조건별로 탐색하고 상세 페이지로 진입하는 허브 페이지",
     sections: [
@@ -53,6 +57,7 @@ const templates: PageTemplate[] = [
     caution: "오래된 매물이 상단에 노출되면 허위매물 의심. 날짜 표시 필수.",
   },
   {
+    id: "listing-detail",
     title: "매물 상세 페이지 템플릿",
     description: "개별 매물의 상세 정보를 보여주고 상담으로 전환하는 페이지",
     sections: [
@@ -68,6 +73,7 @@ const templates: PageTemplate[] = [
     caution: "허위 가격, 과장 면적 표시 절대 금지. '예시 데이터' 표시 필수.",
   },
   {
+    id: "about",
     title: "대표/사무소 소개 페이지 템플릿",
     description: "대표 공인중개사와 사무소의 신뢰 정보를 집중 전달하는 페이지",
     sections: [
@@ -83,6 +89,7 @@ const templates: PageTemplate[] = [
     caution: "허위 경력, 허위 자격, 허위 수상 절대 금지.",
   },
   {
+    id: "contact",
     title: "상담/문의 페이지 템플릿",
     description: "전화·카카오·폼을 통한 상담 전환 집중 페이지",
     sections: [
@@ -98,6 +105,11 @@ const templates: PageTemplate[] = [
   },
 ];
 
+const tocItems = [
+  ...templates.map((t) => ({ id: t.id, title: t.title })),
+  { id: "additional-templates", title: "추가 템플릿 (간략)" },
+];
+
 const PageTemplates = () => {
   return (
     <>
@@ -106,8 +118,10 @@ const PageTemplates = () => {
         description="실제 고객사 부동산 사이트 제작에 바로 사용할 수 있는 페이지별 섹션 구조, CTA, SEO 포인트를 정리합니다."
       />
       <div className="guide-container">
+        <TableOfContents items={tocItems} />
+
         {templates.map((tmpl) => (
-          <SectionBlock key={tmpl.title} title={tmpl.title} subtitle={tmpl.description}>
+          <SectionBlock key={tmpl.title} id={tmpl.id} title={tmpl.title} subtitle={tmpl.description}>
             <div className="space-y-4">
               <div className="bg-card border border-border rounded-lg divide-y divide-border">
                 {tmpl.sections.map((sec, i) => (
@@ -137,7 +151,7 @@ const PageTemplates = () => {
           </SectionBlock>
         ))}
 
-        <SectionBlock title="추가 템플릿 (간략)" subtitle="필요 시 확장 가능한 페이지 구조">
+        <SectionBlock id="additional-templates" title="추가 템플릿 (간략)" subtitle="필요 시 확장 가능한 페이지 구조">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               { title: "지역/거래유형 소개", desc: "특정 지역의 생활권·시세·거래 동향 정보 페이지" },

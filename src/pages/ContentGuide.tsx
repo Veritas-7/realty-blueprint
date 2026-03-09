@@ -3,6 +3,17 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge } from "@/components/guide/StatusBadge";
 import { CopyBlock } from "@/components/guide/CopyBlock";
+import { TableOfContents } from "@/components/guide/TableOfContents";
+
+const tocItems = [
+  { id: "tone", title: "신뢰를 높이는 문장 톤" },
+  { id: "hero-copy", title: "히어로 카피 공식" },
+  { id: "service-intro", title: "서비스 소개 문장 템플릿" },
+  { id: "rep-intro", title: "대표 공인중개사 소개 템플릿" },
+  { id: "cta-library", title: "CTA 문구 라이브러리" },
+  { id: "prohibited-expressions", title: "피해야 할 표현" },
+  { id: "faq-guide", title: "FAQ 작성 가이드" },
+];
 
 const ContentGuide = () => {
   return (
@@ -12,7 +23,9 @@ const ContentGuide = () => {
         description="부동산/공인중개 업종에서 신뢰를 높이고 전환을 유도하는 문장 작성 원칙과 템플릿을 제공합니다."
       />
       <div className="guide-container">
-        <SectionBlock title="신뢰를 높이는 문장 톤" subtitle="부동산 업종 카피의 핵심 방향">
+        <TableOfContents items={tocItems} />
+
+        <SectionBlock id="tone" title="신뢰를 높이는 문장 톤" subtitle="부동산 업종 카피의 핵심 방향">
           <div className="guide-card">
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>• <strong className="text-foreground">구체적 지역명</strong>과 <strong className="text-foreground">구체적 거래 유형</strong>을 중심으로 씁니다.</li>
@@ -24,7 +37,7 @@ const ContentGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="히어로 카피 공식">
+        <SectionBlock id="hero-copy" title="히어로 카피 공식">
           <CopyBlock label="히어로 카피 구조" content={`[지역명] [거래유형] 전문
 [사무소명/대표명]이 [핵심 강점]으로 안내합니다.
 
@@ -34,20 +47,20 @@ const ContentGuide = () => {
 "용인시 신축 아파트 분양 상담 — 000공인중개사사무소" (예시 데이터)`} />
         </SectionBlock>
 
-        <SectionBlock title="서비스 소개 문장 템플릿">
+        <SectionBlock id="service-intro" title="서비스 소개 문장 템플릿">
           <CopyBlock label="거래유형 소개 예시" content={`"[지역명] 아파트 전세·월세를 전문으로 중개하고 있습니다."
 "[지역명] 상가·사무실 임대 상담을 도와드립니다."
 "매매·전세·월세 모든 거래를 정직하게 안내합니다."
 (예시 데이터 — 실제 사용 시 사무소 정보에 맞게 수정)`} />
         </SectionBlock>
 
-        <SectionBlock title="대표 공인중개사 소개 템플릿">
+        <SectionBlock id="rep-intro" title="대표 공인중개사 소개 템플릿">
           <CopyBlock label="대표 소개 예시" content={`"[지역명]에서 [N]년간 [거래유형]을 중개해온 [이름] 대표 공인중개사입니다."
 "국가공인 공인중개사 자격을 보유하고 있으며, [전문 분야]를 중심으로 상담합니다."
 (예시 데이터 — 실제 경력 정보에 맞게 수정. 허위 경력 기재 금지.)`} />
         </SectionBlock>
 
-        <SectionBlock title="CTA 문구 라이브러리">
+        <SectionBlock id="cta-library" title="CTA 문구 라이브러리">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
               { type: "전화 상담", examples: ["전화 상담하기", "지금 전화로 문의", "상담 전화 연결"] },
@@ -69,7 +82,7 @@ const ContentGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="피해야 할 표현" subtitle="부동산 업종에서 금지되는 카피 패턴">
+        <SectionBlock id="prohibited-expressions" title="피해야 할 표현" subtitle="부동산 업종에서 금지되는 카피 패턴">
           <div className="space-y-2">
             {[
               { bad: "무조건 팔립니다", reason: "거래 결과를 보장하는 표현" },
@@ -90,7 +103,7 @@ const ContentGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="FAQ 작성 가이드">
+        <SectionBlock id="faq-guide" title="FAQ 작성 가이드">
           <CopyBlock label="FAQ 예시 질문" content={`Q. 상담 비용이 있나요?
 A. 상담은 무료이며, 중개 수수료는 거래 성사 시 법정 요율에 따라 안내해 드립니다.
 

@@ -2,6 +2,18 @@ import { PageHeader } from "@/components/guide/PageHeader";
 import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge } from "@/components/guide/StatusBadge";
+import { TableOfContents } from "@/components/guide/TableOfContents";
+
+const tocItems = [
+  { id: "user-journey", title: "대표 사용자 여정" },
+  { id: "visit-purpose", title: "방문 목적별 UX 분기" },
+  { id: "above-fold", title: "첫 화면에서 반드시 전달해야 하는 것" },
+  { id: "cta-placement", title: "CTA 배치 원칙" },
+  { id: "form-minimal", title: "폼 최소화 전략" },
+  { id: "mobile-ux", title: "모바일 UX 우선순위" },
+  { id: "exit-prevention", title: "이탈 방지 포인트" },
+  { id: "microcopy", title: "마이크로카피 원칙" },
+];
 
 const UXGuide = () => {
   return (
@@ -11,7 +23,9 @@ const UXGuide = () => {
         description="부동산 사이트 방문자의 사용자 여정, 정보 우선순위, 전환 흐름, 모바일 UX 원칙을 정리합니다."
       />
       <div className="guide-container">
-        <SectionBlock title="대표 사용자 여정" subtitle="첫 방문부터 상담 전환까지">
+        <TableOfContents items={tocItems} />
+
+        <SectionBlock id="user-journey" title="대표 사용자 여정" subtitle="첫 방문부터 상담 전환까지">
           <div className="guide-card">
             <div className="flex flex-wrap items-center gap-2 text-sm">
               {["검색 유입 (지역+거래)", "첫 화면에서 적합성 확인", "지역/거래 전문 분야 탐색", "매물 또는 서비스 확인", "대표/사무소 신뢰 확인", "상담 CTA 전환"].map((step, i) => (
@@ -24,7 +38,7 @@ const UXGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="방문 목적별 UX 분기" subtitle="5가지 대표 방문 유형">
+        <SectionBlock id="visit-purpose" title="방문 목적별 UX 분기" subtitle="5가지 대표 방문 유형">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               { type: "매물 탐색형", flow: "히어로 → 매물 리스트 → 필터 → 상세 → 상담", key: "필터와 매물 카드 품질이 핵심" },
@@ -42,7 +56,7 @@ const UXGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="첫 화면에서 반드시 전달해야 하는 것" subtitle="Above the fold 정보 우선순위">
+        <SectionBlock id="above-fold" title="첫 화면에서 반드시 전달해야 하는 것" subtitle="Above the fold 정보 우선순위">
           <div className="bg-card border border-border rounded-lg divide-y divide-border">
             {[
               { priority: "1", item: "어느 지역·어떤 거래를 전문으로 하는지", badge: "required" as const },
@@ -60,7 +74,7 @@ const UXGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="CTA 배치 원칙">
+        <SectionBlock id="cta-placement" title="CTA 배치 원칙">
           <div className="guide-card">
             <div className="space-y-3 text-sm">
               <div className="flex items-start gap-2"><StatusBadge variant="required" /><span className="text-muted-foreground">히어로 영역에 핵심 CTA 1~2개 (전화, 매물보기, 문의 중 택)</span></div>
@@ -73,7 +87,7 @@ const UXGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="폼 최소화 전략">
+        <SectionBlock id="form-minimal" title="폼 최소화 전략">
           <div className="guide-card">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div>
@@ -96,7 +110,7 @@ const UXGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="모바일 UX 우선순위">
+        <SectionBlock id="mobile-ux" title="모바일 UX 우선순위">
           <div className="space-y-3">
             {[
               { item: "전화 버튼 터치 한 번으로 연결", priority: "최우선" },
@@ -114,7 +128,7 @@ const UXGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="이탈 방지 포인트">
+        <SectionBlock id="exit-prevention" title="이탈 방지 포인트">
           <div className="guide-card">
             <div className="space-y-2 text-sm text-muted-foreground">
               <p>• <strong className="text-foreground">히어로에서 지역이 안 맞으면:</strong> 즉시 이탈 → 지역명을 최상단에 명확히</p>
@@ -126,7 +140,7 @@ const UXGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="마이크로카피 원칙">
+        <SectionBlock id="microcopy" title="마이크로카피 원칙">
           <div className="guide-card">
             <div className="space-y-2 text-sm text-muted-foreground">
               <p>• CTA: 구체적 행동 기술 ("전화 상담하기", "카카오로 문의", "매물 보기")</p>
