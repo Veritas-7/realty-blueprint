@@ -145,7 +145,17 @@ const Checklist = () => {
       />
       <div className="guide-container">
         <TableOfContents items={sections.map((s, i) => ({ id: `check-${i}`, title: s.title }))} />
-        {sections.map((section, sIdx) => {
+        <SummaryCard items={[
+          "8개 카테고리, 총 54개 검수 항목으로 구성된 실무 체크리스트",
+          "브리프 → 디자인 → UI → 모바일 → 콘텐츠 → 신뢰 → SEO → 런칭 순서",
+          "체크박스를 클릭하여 진행 상태를 관리 (새로고침 시 초기화)",
+        ]} />
+        <QuickPoints points={[
+          "브리프 작성 완료 후 시작",
+          "모바일 검수는 실기기에서 확인",
+          "허위 매물/후기 없는지 필수 점검",
+          "런칭 전 SSL·Search Console 등록",
+        ]} />
           const progress = getProgress(section);
           return (
             <SectionBlock key={section.title} id={`check-${sIdx}`} title={section.title} subtitle={`${progress.checked}/${progress.total} 완료 (${progress.pct}%)`}>
