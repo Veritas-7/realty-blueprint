@@ -3,6 +3,8 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge } from "@/components/guide/StatusBadge";
 import { TableOfContents } from "@/components/guide/TableOfContents";
+import { SummaryCard } from "@/components/guide/SummaryCard";
+import { QuickPoints } from "@/components/guide/QuickPoints";
 
 const tocItems = [
   { id: "user-journey", title: "대표 사용자 여정" },
