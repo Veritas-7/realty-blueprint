@@ -376,6 +376,7 @@ export function generateLovablePrompt(brief: ClientBrief): string {
   const recommendedPages = classified.filter((p) => p.classification === "권장").map((p) => p.name);
   const conditionalPages = classified.filter((p) => p.classification === "조건부").map((p) => p.name);
   const prohibitedPages = classified.filter((p) => p.classification === "금지").map((p) => p.name);
+  const isBunyang = brief.propertyCategories.includes("분양");
 
   const ownedAssets = [
     brief.hasRegistrationInfo && "등록정보",
