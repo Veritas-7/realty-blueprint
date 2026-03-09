@@ -142,6 +142,7 @@ const Checklist = () => {
         description="부동산/공인중개 사이트 제작의 단계별 검수 항목입니다. 체크박스를 클릭하여 진행 상태를 관리하세요."
       />
       <div className="guide-container">
+        <TableOfContents items={sections.map((s, i) => ({ id: `check-${i}`, title: s.title }))} />
         {sections.map((section, sIdx) => {
           const progress = getProgress(section);
           return (
