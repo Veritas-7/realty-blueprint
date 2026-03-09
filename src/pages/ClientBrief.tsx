@@ -3,7 +3,7 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge } from "@/components/guide/StatusBadge";
 import { SummaryCard } from "@/components/guide/SummaryCard";
-import { Download, Upload, RotateCcw, Sparkles, Save, RefreshCw } from "lucide-react";
+import { Download, Upload, RotateCcw, Sparkles, Save, RefreshCw, AlertTriangle, Info } from "lucide-react";
 import { useClientBrief } from "@/hooks/use-client-brief";
 import { getAssetCompleteness } from "@/lib/brief-analysis";
 import {
@@ -62,7 +62,7 @@ const BoolField = ({ label, checked, onChange }: { label: string; checked: boole
 
 const ClientBriefPage = () => {
   const {
-    brief, saveStatus, lastSaved, loadError, missingFields, siteType,
+    brief, saveStatus, lastSaved, loadError, loadWarning, missingFields, siteType,
     update, toggleArray, fillExample, resetAll, exportJSON, importJSON, retrySave,
   } = useClientBrief();
 
@@ -102,7 +102,21 @@ const ClientBriefPage = () => {
         </div>
 
         {loadError && (
-          <div className="mb-6 p-3 bg-destructive/10 border border-destructive/20 rounded-md text-sm text-destructive">{loadError}</div>
+          <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-md text-sm text-destructive flex items-start gap-2">
+            <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" />
+            <div>
+              <strong>불러오기 오류:</strong> {loadError}
+            </div>
+          </div>
+        )}
+
+        {loadWarning && (
+          <div className="mb-4 p-3 bg-warning/10 border border-warning/20 rounded-md text-sm text-foreground flex items-start gap-2">
+            <Info className="h-4 w-4 flex-shrink-0 mt-0.5 text-warning" />
+            <div>
+              <strong>마이그레이션 알림:</strong> {loadWarning}
+            </div>
+          </div>
         )}
 
         {errors.length > 0 && (
@@ -117,10 +131,13 @@ const ClientBriefPage = () => {
         )}
 
         {/* Site type preview */}
-        <div className="mb-6 flex items-center gap-3">
-          <span className="text-sm text-muted-foreground">예상 사이트 유형:</span>
-          <StatusBadge variant="info">{siteType.type}</StatusBadge>
-          <span className="text-xs text-muted-foreground">({siteType.reasoning})</span>
+        <div className="mb-6 p-4 bg-muted rounded-lg">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-sm font-medium text-foreground">예상 사이트 유형:</span>
+            <StatusBadge variant="info">{siteType.type}</StatusBadge>
+            <span className="text-xs text-muted-foreground px-2 py-0.5 bg-background rounded">점수: {siteType.score}</span>
+          </div>
+          <p className="text-xs text-muted-foreground">판별 근거: {siteType.reasoning}</p>
         </div>
 
         {/* Form sections */}
@@ -204,7 +221,7 @@ const ClientBriefPage = () => {
               <div><strong className="text-foreground">거래 유형:</strong> <span className="text-muted-foreground">{brief.transactionTypes.join(", ") || "미선택"}</span></div>
               <div><strong className="text-foreground">지점:</strong> <span className="text-muted-foreground">{brief.branchType === "single" ? "단일" : "다지점"}</span></div>
               <div><strong className="text-foreground">핵심 CTA:</strong> <span className="text-muted-foreground">{brief.primaryCTA.join(", ") || "미선택"}</span></div>
-              <div><strong className="text-foreground">사이트 유형:</strong> <StatusBadge variant="info">{siteType.type}</StatusBadge></div>
+              <div><strong className="text-foreground">사이트 유형:</strong> <StatusBadge variant="info">{siteType.type}</StatusBadge> <span className="text-xs text-muted-foreground ml-1">(점수 {siteType.score})</span></div>
               <div><strong className="text-foreground">자산 완비율:</strong> <span className="text-muted-foreground">{assets.pct}%</span></div>
             </div>
             <div className="mt-3 pt-3 border-t border-border text-xs text-muted-foreground">

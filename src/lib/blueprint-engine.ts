@@ -374,31 +374,71 @@ export function generateLovablePrompt(brief: ClientBrief): string {
   const classified = classifyPages(brief);
   const requiredPages = classified.filter((p) => p.classification === "필수").map((p) => p.name);
   const recommendedPages = classified.filter((p) => p.classification === "권장").map((p) => p.name);
+  const conditionalPages = classified.filter((p) => p.classification === "조건부").map((p) => p.name);
+  const prohibitedPages = classified.filter((p) => p.classification === "금지").map((p) => p.name);
 
-  return `다음 조건으로 부동산 공인중개사 홈페이지를 만들어주세요:
-- 사이트 유형: ${siteType.type} (${siteType.reasoning})
-- 사무소명: ${biz}
-- 지역: ${region}
-- 부동산 유형: ${brief.propertyTypes.join(", ")}
-- 거래 유형: ${brief.transactionTypes.join(", ")}
-- 지점: ${brief.branchType === "single" ? "단일" : "다지점"}
-- 핵심 CTA: ${brief.primaryCTA.join(", ")}
-- 브랜드 톤: ${brief.brandTone}
-- 필수 페이지: ${requiredPages.join(", ")}
-- 권장 페이지: ${recommendedPages.join(", ")}
-- 전화: ${brief.phone}
-- 주소: ${brief.address}
-- 상담시간: ${brief.consultationHours}
-- 상담 채널: ${brief.consultationChannels.join(", ")}
-${brief.prohibitedExpressions ? `- 금지 표현: ${brief.prohibitedExpressions}` : ""}
-
-디자인 방향: 신뢰감, 지역 전문성, 모바일 우선, 상담 전환 중심. 딥 네이비+화이트+틸 컬러. 과장/투자광고 톤 금지.
-보유 자산: ${[
+  const ownedAssets = [
     brief.hasRegistrationInfo && "등록정보",
     brief.hasRepresentativeInfo && "대표 프로필",
     brief.hasListings && "매물 DB",
     brief.hasReviews && "후기",
     brief.hasRegionalContent && "지역 콘텐츠",
     brief.hasOfficePhotos && "사무소 사진",
-  ].filter(Boolean).join(", ") || "없음"}`;
+  ].filter(Boolean).join(", ") || "없음";
+
+  const missingAssets = [
+    !brief.hasRegistrationInfo && "등록정보 → 사업자정보로 대체",
+    !brief.hasRepresentativeInfo && "대표 프로필 → 사무소 소개로 대체",
+    !brief.hasListings && "매물 DB → 서비스 안내로 대체",
+    !brief.hasReviews && "후기 → FAQ 강화",
+    !brief.hasRegionalContent && "지역 콘텐츠 → 생략 가능",
+    !brief.hasOfficePhotos && "사무소 사진 → 지도 캡처",
+  ].filter(Boolean).join("\n  ") || "없음";
+
+  return `## 부동산 공인중개사 홈페이지 제작 프롬프트
+
+### 1. 사이트 개요
+- 사이트 유형: ${siteType.type} (${siteType.reasoning})
+- 사무소명: ${biz}
+- 지역: ${region}
+- 지점 유형: ${brief.branchType === "single" ? "단일 지점" : "다지점"}
+
+### 2. 취급 부동산
+- 부동산 유형: ${brief.propertyTypes.join(", ") || "미지정"}
+- 거래 유형: ${brief.transactionTypes.join(", ") || "미지정"}
+- 카테고리: ${brief.propertyCategories.join(", ") || "미지정"}
+
+### 3. 연락처/상담
+- 전화: ${brief.phone || "미지정"}
+- 주소: ${brief.address || "미지정"}
+- 상담시간: ${brief.consultationHours || "미지정"}
+- 상담 채널: ${brief.consultationChannels.join(", ") || "미지정"}
+
+### 4. 페이지 구성
+- 필수 페이지: ${requiredPages.join(", ")}
+- 권장 페이지: ${recommendedPages.join(", ")}
+${conditionalPages.length > 0 ? `- 조건부 페이지: ${conditionalPages.join(", ")}` : ""}
+${prohibitedPages.length > 0 ? `- 금지 페이지 (절대 생성 금지): ${prohibitedPages.join(", ")}` : ""}
+
+### 5. CTA 우선순위
+- 핵심 CTA: ${brief.primaryCTA.join(" > ") || "전화상담 > 카카오문의"}
+- 모바일 하단 고정 CTA: ${brief.consultationChannels.slice(0, 3).join(" / ") || "전화 / 카카오"}
+
+### 6. 디자인/톤
+- 브랜드 톤: ${brief.brandTone || "신뢰·전문"}
+- 디자인 방향: 신뢰감, 지역 전문성, 모바일 우선, 상담 전환 중심
+- 컬러: 딥 네이비 + 화이트 + 틸 기본
+- 과장/투자광고 톤 절대 금지
+${brief.prohibitedExpressions ? `- 금지 표현: ${brief.prohibitedExpressions}` : ""}
+
+### 7. 보유 자산
+- 보유: ${ownedAssets}
+- 부족 자산 대체안:
+  ${missingAssets}
+
+### 8. 핵심 규칙
+- 모든 페이지에 등록정보/사업자정보 포함 (푸터)
+- 허위 증빙(후기, 경력, 거래건수) 절대 생성 금지
+- 매물 DB 미보유 시 매물 페이지 생성 금지
+- 히어로에 "${region} ${brief.transactionTypes.join("·")} 전문" 메시지 필수`;
 }

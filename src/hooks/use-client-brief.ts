@@ -11,6 +11,7 @@ export interface UseClientBriefReturn {
   saveStatus: SaveStatus;
   lastSaved: string | null;
   loadError: string | null;
+  loadWarning: string | null;
   missingFields: MissingField[];
   siteType: SiteTypeResult;
 
@@ -28,6 +29,7 @@ export const useClientBrief = (): UseClientBriefReturn => {
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [loadWarning, setLoadWarning] = useState<string | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
   // Load on mount
@@ -39,6 +41,9 @@ export const useClientBrief = (): UseClientBriefReturn => {
       setBrief(result.brief);
       setLastSaved(result.brief.lastSaved);
       setSaveStatus("saved");
+    }
+    if (result.warning) {
+      setLoadWarning(result.warning);
     }
   }, []);
 
@@ -80,12 +85,14 @@ export const useClientBrief = (): UseClientBriefReturn => {
   const fillExample = useCallback(() => {
     setBrief(exampleBrief);
     scheduleSave(exampleBrief);
+    setLoadWarning(null);
   }, [scheduleSave]);
 
   const resetAll = useCallback(() => {
     setBrief(defaultBrief);
     scheduleSave(defaultBrief);
     setLoadError(null);
+    setLoadWarning(null);
   }, [scheduleSave]);
 
   const exportJSON = useCallback(() => {
@@ -99,15 +106,20 @@ export const useClientBrief = (): UseClientBriefReturn => {
         const result = parseBriefFromJSON(ev.target?.result as string);
         if (result.error) {
           setLoadError(result.error);
+          setLoadWarning(null);
           resolve(result.error);
         } else if (result.brief) {
           setBrief(result.brief);
           scheduleSave(result.brief);
           setLoadError(null);
+          setLoadWarning(result.warning);
           resolve(null);
         }
       };
-      reader.onerror = () => resolve("파일을 읽을 수 없습니다.");
+      reader.onerror = () => {
+        setLoadError("파일을 읽을 수 없습니다.");
+        resolve("파일을 읽을 수 없습니다.");
+      };
       reader.readAsText(file);
     });
   }, [scheduleSave]);
@@ -120,7 +132,7 @@ export const useClientBrief = (): UseClientBriefReturn => {
   const siteType = determineSiteType(brief);
 
   return {
-    brief, saveStatus, lastSaved, loadError, missingFields, siteType,
+    brief, saveStatus, lastSaved, loadError, loadWarning, missingFields, siteType,
     update, toggleArray, fillExample, resetAll, exportJSON, importJSON, retrySave,
   };
 };
