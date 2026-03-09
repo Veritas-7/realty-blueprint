@@ -74,6 +74,9 @@ export const SEOHead = () => {
     if (types.includes("WebSite")) {
       addJsonLd(generateWebSiteJsonLd());
     }
+    if (types.includes("WebPage")) {
+      addJsonLd(generateWebPageJsonLd(canonicalPath, meta));
+    }
     if (types.includes("RealEstateAgent")) {
       addJsonLd(generateRealEstateAgentJsonLd());
     }
