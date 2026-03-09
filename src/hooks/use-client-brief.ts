@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { type ClientBrief, defaultBrief } from "@/data/briefSchema";
+import { type ClientBrief, defaultBrief, exampleBrief } from "@/data/briefSchema";
 import { loadBrief, saveBrief, exportBriefJSON, parseBriefFromJSON } from "@/lib/brief-storage";
 import { getMissingFields, type MissingField } from "@/lib/brief-normalize";
 import { determineSiteType, type SiteTypeResult } from "@/lib/brief-analysis";
