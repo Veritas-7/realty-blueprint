@@ -78,7 +78,6 @@ export const useClientBrief = (): UseClientBriefReturn => {
   }, [scheduleSave]);
 
   const fillExample = useCallback(() => {
-    const { exampleBrief } = require("@/data/briefSchema");
     setBrief(exampleBrief);
     scheduleSave(exampleBrief);
   }, [scheduleSave]);
