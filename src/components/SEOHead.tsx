@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { routeMeta, notFoundMeta, generateBreadcrumbJsonLd, generateWebSiteJsonLd, generateRealEstateAgentJsonLd, SITE_URL } from "@/data/seo-config";
+import { routeMeta, notFoundMeta, generateBreadcrumbJsonLd, generateWebSiteJsonLd, generateRealEstateAgentJsonLd, generateWebPageJsonLd, SITE_URL } from "@/data/seo-config";
 
 export const SEOHead = () => {
   const location = useLocation();
