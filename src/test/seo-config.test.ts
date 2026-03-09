@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { routeMeta, notFoundMeta, SITE_URL, generateBreadcrumbJsonLd, generateWebSiteJsonLd, generateRealEstateAgentJsonLd } from "@/data/seo-config";
+import { routeMeta, notFoundMeta, SITE_URL, generateBreadcrumbJsonLd, generateWebSiteJsonLd, generateRealEstateAgentJsonLd, generateWebPageJsonLd } from "@/data/seo-config";
 import { navItems } from "@/data/navigation";
 
 describe("seo-config", () => {
