@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { CommandSearch } from "@/components/CommandSearch";
+import { SEOHead } from "@/components/SEOHead";
 import { industryConfig } from "@/data/industry-config";
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {
@@ -20,6 +21,7 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
             </div>
           </header>
           <main className="flex-1 overflow-auto">
+            <SEOHead />
             {children}
           </main>
         </div>

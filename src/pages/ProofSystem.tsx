@@ -3,6 +3,7 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge, type BadgeVariant } from "@/components/guide/StatusBadge";
 import { SummaryCard } from "@/components/guide/SummaryCard";
+import { TableOfContents } from "@/components/guide/TableOfContents";
 import { useBrief } from "@/hooks/use-brief";
 import { getProofStatuses } from "@/lib/brief-analysis";
 import { Link } from "react-router-dom";
@@ -85,6 +86,13 @@ const ProofSystem = () => {
         description="부동산/공인중개 사이트에서 방문자의 신뢰를 확보하기 위한 증빙 요소의 분류, 배치, 상태 관리 체계입니다."
       />
       <div className="guide-container">
+        <TableOfContents items={[
+          { id: "catalog", title: "증빙 요소 카탈로그" },
+          { id: "proof-placement", title: "페이지별 Proof 배치 규칙" },
+          ...(hasBrief && deficientCount > 0 ? [{ id: "deficiency-combos", title: "Proof 부족 시 대체 조합" }] : []),
+          { id: "status-system", title: "증빙 상태 체계" },
+          { id: "prohibited", title: "허위 생성 금지 원칙" },
+        ]} />
         {hasBrief && (
           <SummaryCard items={[
             `보유 자산: ${ownedCount}/${proofStatuses!.length}개`,

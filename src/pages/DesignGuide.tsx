@@ -3,6 +3,18 @@ import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge } from "@/components/guide/StatusBadge";
 import { CopyBlock } from "@/components/guide/CopyBlock";
+import { TableOfContents } from "@/components/guide/TableOfContents";
+
+const tocItems = [
+  { id: "brand-tone", title: "브랜드 톤 정의" },
+  { id: "color-system", title: "컬러 시스템" },
+  { id: "typography", title: "타이포그래피 시스템" },
+  { id: "spacing", title: "간격 시스템" },
+  { id: "border-shadow", title: "라운드·보더·그림자" },
+  { id: "image-rules", title: "이미지 사용 기준" },
+  { id: "icon-style", title: "아이콘 스타일 가이드" },
+  { id: "prohibited-visuals", title: "금지해야 할 시각 표현" },
+];
 
 const DesignGuide = () => {
   return (
@@ -12,7 +24,9 @@ const DesignGuide = () => {
         description="부동산/공인중개 업종에 최적화된 디자인 시스템, 컬러, 타이포그래피, 레이아웃, 이미지 사용 기준을 정의합니다."
       />
       <div className="guide-container">
-        <SectionBlock title="브랜드 톤 정의" subtitle="부동산 업종에 맞는 비주얼 키워드">
+        <TableOfContents items={tocItems} />
+
+        <SectionBlock id="brand-tone" title="브랜드 톤 정의" subtitle="부동산 업종에 맞는 비주얼 키워드">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {["Trustworthy", "Local-Expert", "Professional", "Structured", "Modern", "Clear", "Conversion-Oriented", "Calm & Credible"].map((kw) => (
               <div key={kw} className="text-center p-3 bg-card border border-border rounded-lg">
@@ -28,7 +42,7 @@ const DesignGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="컬러 시스템" subtitle="추천 컬러 토큰과 사용 기준">
+        <SectionBlock id="color-system" title="컬러 시스템" subtitle="추천 컬러 토큰과 사용 기준">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-3">
               <h4 className="font-semibold text-foreground text-sm">메인 팔레트</h4>
@@ -76,7 +90,7 @@ const DesignGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="타이포그래피 시스템">
+        <SectionBlock id="typography" title="타이포그래피 시스템">
           <div className="space-y-4">
             <div className="guide-card">
               <div className="space-y-3">
@@ -97,7 +111,7 @@ Label: text-xs font-medium (12px)`} />
           </div>
         </SectionBlock>
 
-        <SectionBlock title="간격 시스템">
+        <SectionBlock id="spacing" title="간격 시스템">
           <CopyBlock label="Spacing Scale" content={`xs: 4px  (p-1)   — 인라인 요소 간격
 sm: 8px  (p-2)   — 배지, 태그 내부
 md: 16px (p-4)   — 카드 내부 기본
@@ -107,7 +121,7 @@ xl: 32px (p-8)   — 페이지 패딩
 3xl: 64px (py-16) — 주요 섹션 구분`} />
         </SectionBlock>
 
-        <SectionBlock title="라운드·보더·그림자">
+        <SectionBlock id="border-shadow" title="라운드·보더·그림자">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="guide-card">
               <h4 className="font-semibold text-foreground text-sm mb-2">Border Radius</h4>
@@ -137,7 +151,7 @@ xl: 32px (p-8)   — 페이지 패딩
           </div>
         </SectionBlock>
 
-        <SectionBlock title="이미지 사용 기준">
+        <SectionBlock id="image-rules" title="이미지 사용 기준">
           <div className="space-y-3">
             {[
               { title: "대표 공인중개사 사진", rules: "실제 인물 사진 사용. 정면 또는 45도 각도. 밝은 배경. 정장 또는 단정한 캐주얼. AI 생성 이미지 사용 가능하나 실제 인물처럼 보이게 과장하면 안 됨.", badge: "recommended" as const },
@@ -158,7 +172,7 @@ xl: 32px (p-8)   — 페이지 패딩
           </div>
         </SectionBlock>
 
-        <SectionBlock title="아이콘 스타일 가이드">
+        <SectionBlock id="icon-style" title="아이콘 스타일 가이드">
           <div className="guide-card">
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>• <strong className="text-foreground">스타일:</strong> 라인 아이콘 (Lucide 또는 Heroicons 계열)</li>
@@ -169,7 +183,7 @@ xl: 32px (p-8)   — 페이지 패딩
           </div>
         </SectionBlock>
 
-        <SectionBlock title="금지해야 할 시각 표현">
+        <SectionBlock id="prohibited-visuals" title="금지해야 할 시각 표현">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
               "투자 광고형 네온·골드 배경",

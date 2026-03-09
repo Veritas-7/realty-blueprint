@@ -2,6 +2,7 @@ import { PageHeader } from "@/components/guide/PageHeader";
 import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge, type BadgeVariant } from "@/components/guide/StatusBadge";
+import { TableOfContents } from "@/components/guide/TableOfContents";
 
 interface UIComponent {
   name: string;
@@ -30,6 +31,13 @@ const components: UIComponent[] = [
   { name: "푸터", purpose: "사업자 정보·면책·저작권·연락처·지도", where: "모든 페이지", dontUse: "", badge: "required", mobile: "세로 스택", accessibility: "nav, address 태그" },
 ];
 
+const tocItems = [
+  { id: "ui-components", title: "핵심 UI 컴포넌트 목록" },
+  { id: "button-system", title: "버튼 시스템" },
+  { id: "form-states", title: "폼 필드 상태" },
+  { id: "tab-chip-filter", title: "탭 / 칩 / 필터 / 태그" },
+];
+
 const UIGuide = () => {
   return (
     <>
@@ -38,7 +46,9 @@ const UIGuide = () => {
         description="부동산/공인중개 사이트에 필요한 UI 컴포넌트의 사용 목적, 배치 위치, 주의사항을 정리합니다."
       />
       <div className="guide-container">
-        <SectionBlock title="핵심 UI 컴포넌트 목록" subtitle="각 컴포넌트의 사용 가이드">
+        <TableOfContents items={tocItems} />
+
+        <SectionBlock id="ui-components" title="핵심 UI 컴포넌트 목록" subtitle="각 컴포넌트의 사용 가이드">
           <div className="space-y-4">
             {components.map((comp) => (
               <div key={comp.name} className="guide-card">
@@ -62,7 +72,7 @@ const UIGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="버튼 시스템">
+        <SectionBlock id="button-system" title="버튼 시스템">
           <div className="guide-card">
             <div className="space-y-3">
               {[
@@ -80,7 +90,7 @@ const UIGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="폼 필드 상태">
+        <SectionBlock id="form-states" title="폼 필드 상태">
           <div className="guide-card">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
@@ -99,7 +109,7 @@ const UIGuide = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="탭 / 칩 / 필터 / 태그">
+        <SectionBlock id="tab-chip-filter" title="탭 / 칩 / 필터 / 태그">
           <div className="guide-card">
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>• <strong className="text-foreground">탭:</strong> 매물 유형 전환 (아파트/오피스텔/빌라 등)</li>

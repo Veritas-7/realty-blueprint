@@ -2,6 +2,17 @@ import { PageHeader } from "@/components/guide/PageHeader";
 import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { CopyBlock } from "@/components/guide/CopyBlock";
+import { TableOfContents } from "@/components/guide/TableOfContents";
+
+const tocItems = [
+  { id: "meta-examples", title: "페이지별 메타 타이틀/디스크립션 예시" },
+  { id: "url-structure", title: "URL 구조 예시" },
+  { id: "landing-design", title: "검색 유입용 랜딩 페이지 설계" },
+  { id: "heading-rules", title: "H1/H2/H3 규칙" },
+  { id: "structured-data", title: "구조화 데이터 (JSON-LD)" },
+  { id: "ai-search", title: "AI 검색/요약 대응" },
+  { id: "technical-seo", title: "기술적 SEO 체크포인트" },
+];
 
 const SeoGeo = () => {
   return (
@@ -11,7 +22,9 @@ const SeoGeo = () => {
         description="부동산/공인중개 사이트의 검색 최적화, 지역 기반 탐색, 구조화 데이터, AI 검색 대응 전략을 정리합니다."
       />
       <div className="guide-container">
-        <SectionBlock title="페이지별 메타 타이틀/디스크립션 예시">
+        <TableOfContents items={tocItems} />
+
+        <SectionBlock id="meta-examples" title="페이지별 메타 타이틀/디스크립션 예시">
           <CopyBlock label="메타 예시 (예시 데이터)" content={`홈:
   title: "마포구 아파트 전세·매매 전문 — 한강부동산 공인중개사사무소"
   description: "서울 마포구 아파트 전세, 매매 전문 중개. 대표 공인중개사 직접 상담. 전화 02-000-0000."
@@ -31,7 +44,7 @@ const SeoGeo = () => {
 (예시 데이터 — 실제 사무소 정보에 맞게 수정)`} />
         </SectionBlock>
 
-        <SectionBlock title="URL 구조 예시">
+        <SectionBlock id="url-structure" title="URL 구조 예시">
           <CopyBlock label="권장 URL 패턴" content={`/ — 홈
 /listings — 매물 리스트
 /listings/apartment-jeonse — 아파트 전세
@@ -46,7 +59,7 @@ const SeoGeo = () => {
 /reviews — 후기`} />
         </SectionBlock>
 
-        <SectionBlock title="검색 유입용 랜딩 페이지 설계">
+        <SectionBlock id="landing-design" title="검색 유입용 랜딩 페이지 설계">
           <div className="guide-card">
             <h4 className="font-semibold text-foreground text-sm mb-2">지역 + 거래유형 조합 랜딩</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted-foreground">
@@ -61,7 +74,7 @@ const SeoGeo = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="H1/H2/H3 규칙">
+        <SectionBlock id="heading-rules" title="H1/H2/H3 규칙">
           <div className="guide-card">
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>• <strong className="text-foreground">H1:</strong> 페이지당 1개. 지역명 + 서비스 + 브랜드 포함 권장.</li>
@@ -72,7 +85,7 @@ const SeoGeo = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="구조화 데이터 (JSON-LD)">
+        <SectionBlock id="structured-data" title="구조화 데이터 (JSON-LD)">
           <CopyBlock label="추천 스키마 유형" content={`1. Organization — 사무소 정보
 2. RealEstateAgent — 공인중개사 정보
 3. Place / LocalBusiness — 위치, 영업시간
@@ -96,7 +109,7 @@ const SeoGeo = () => {
 }`} />
         </SectionBlock>
 
-        <SectionBlock title="AI 검색/요약 대응">
+        <SectionBlock id="ai-search" title="AI 검색/요약 대응">
           <div className="guide-card">
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>• 질문-답변 구조 (FAQ)를 적극 활용</li>
@@ -108,7 +121,7 @@ const SeoGeo = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="기술적 SEO 체크포인트">
+        <SectionBlock id="technical-seo" title="기술적 SEO 체크포인트">
           <div className="guide-card">
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>• canonical 태그: 모든 페이지에 자기 참조 canonical 적용</li>

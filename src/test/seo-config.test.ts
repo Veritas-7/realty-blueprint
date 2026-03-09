@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { routeMeta, notFoundMeta, SITE_URL, generateBreadcrumbJsonLd, generateWebSiteJsonLd } from "@/data/seo-config";
+import { routeMeta, notFoundMeta, SITE_URL, generateBreadcrumbJsonLd, generateWebSiteJsonLd, generateRealEstateAgentJsonLd } from "@/data/seo-config";
 import { navItems } from "@/data/navigation";
 
 describe("seo-config", () => {
@@ -40,7 +40,7 @@ describe("seo-config", () => {
     }
   });
 
-  it("SITE_URL is defined", () => {
+  it("SITE_URL is defined and absolute", () => {
     expect(SITE_URL).toBeTruthy();
     expect(SITE_URL.startsWith("https://")).toBe(true);
   });
@@ -61,5 +61,28 @@ describe("seo-config", () => {
     const result = generateWebSiteJsonLd();
     expect(result["@type"]).toBe("WebSite");
     expect(result.url).toBe(SITE_URL);
+  });
+
+  it("generateRealEstateAgentJsonLd returns correct type", () => {
+    const result = generateRealEstateAgentJsonLd();
+    expect(result["@type"]).toBe("RealEstateAgent");
+    expect(result.url).toBe(SITE_URL);
+  });
+
+  it("industry-overview has RealEstateAgent jsonLdType", () => {
+    expect(routeMeta["/industry-overview"].jsonLdType).toContain("RealEstateAgent");
+  });
+
+  it("all routes have jsonLdType array", () => {
+    for (const [path, meta] of Object.entries(routeMeta)) {
+      expect(meta.jsonLdType, `Missing jsonLdType for ${path}`).toBeDefined();
+      expect(meta.jsonLdType!.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("breadcrumb items use absolute URLs", () => {
+    const result = generateBreadcrumbJsonLd("/design-guide", "디자인 가이드");
+    expect(result.itemListElement[0].item).toMatch(/^https:\/\//);
+    expect(result.itemListElement[1].item).toMatch(/^https:\/\//);
   });
 });

@@ -174,6 +174,12 @@ const ImplementationRules = () => {
                 <p className="text-sm text-muted-foreground mt-2">후기 섹션 생략. 대신 거래 프로세스 안내 또는 FAQ 강화로 신뢰 보강.</p>
               </div>
             )}
+            {!hasRegional && (
+              <div className="guide-card">
+                <StatusBadge variant="info">지역 콘텐츠 미보유</StatusBadge>
+                <p className="text-sm text-muted-foreground mt-2">지역 소개/시세 페이지 생략. SEO 효과 약화 감수. 히어로와 소개 페이지에서 지역 전문성을 텍스트로 보완.</p>
+              </div>
+            )}
             {isBunyang && (
               <div className="guide-card border-info/30">
                 <StatusBadge variant="conditional">분양 포함</StatusBadge>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PageHeader } from "@/components/guide/PageHeader";
 import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
+import { TableOfContents } from "@/components/guide/TableOfContents";
 import { Check } from "lucide-react";
 
 interface CheckItem {
@@ -141,10 +142,11 @@ const Checklist = () => {
         description="부동산/공인중개 사이트 제작의 단계별 검수 항목입니다. 체크박스를 클릭하여 진행 상태를 관리하세요."
       />
       <div className="guide-container">
+        <TableOfContents items={sections.map((s, i) => ({ id: `check-${i}`, title: s.title }))} />
         {sections.map((section, sIdx) => {
           const progress = getProgress(section);
           return (
-            <SectionBlock key={section.title} title={section.title} subtitle={`${progress.checked}/${progress.total} 완료 (${progress.pct}%)`}>
+            <SectionBlock key={section.title} id={`check-${sIdx}`} title={section.title} subtitle={`${progress.checked}/${progress.total} 완료 (${progress.pct}%)`}>
               <div className="mb-2">
                 <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
                   <div className="h-full bg-trust rounded-full transition-all duration-300" style={{ width: `${progress.pct}%` }} />

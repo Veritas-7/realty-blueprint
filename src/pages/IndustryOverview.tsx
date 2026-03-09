@@ -2,6 +2,17 @@ import { PageHeader } from "@/components/guide/PageHeader";
 import { SectionBlock } from "@/components/guide/SectionBlock";
 import { PrevNextNav } from "@/components/guide/PrevNextNav";
 import { StatusBadge } from "@/components/guide/StatusBadge";
+import { TableOfContents } from "@/components/guide/TableOfContents";
+
+const tocItems = [
+  { id: "diff", title: "일반 서비스업과 다른 점" },
+  { id: "visitor-priority", title: "방문자가 가장 먼저 확인하는 정보" },
+  { id: "site-types", title: "사이트 유형별 차이" },
+  { id: "property-types", title: "주거형 / 상업형 / 토지형 / 분양형 차이" },
+  { id: "conversion-flow", title: "전환이 발생하는 대표 흐름" },
+  { id: "trust-elements", title: "부동산 사이트에서 신뢰를 주는 요소" },
+  { id: "fail-patterns", title: "자주 실패하는 패턴" },
+];
 
 const IndustryOverview = () => {
   return (
@@ -11,7 +22,9 @@ const IndustryOverview = () => {
         description="부동산/공인중개 홈페이지가 일반 서비스업 홈페이지와 다른 점, 방문자 행동 패턴, 사이트 유형별 차이를 정리합니다."
       />
       <div className="guide-container">
-        <SectionBlock title="일반 서비스업과 다른 점" subtitle="부동산 사이트만의 고유 특성">
+        <TableOfContents items={tocItems} />
+
+        <SectionBlock id="diff" title="일반 서비스업과 다른 점" subtitle="부동산 사이트만의 고유 특성">
           <div className="space-y-3">
             {[
               { title: "지역 기반 서비스", desc: "특정 지역의 매물·시세·생활권 정보가 핵심이며, 지역을 벗어난 방문자에게는 관련성이 급격히 떨어집니다." },
@@ -29,7 +42,7 @@ const IndustryOverview = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="방문자가 가장 먼저 확인하는 정보" subtitle="우선순위별 정리">
+        <SectionBlock id="visitor-priority" title="방문자가 가장 먼저 확인하는 정보" subtitle="우선순위별 정리">
           <div className="bg-card border border-border rounded-lg divide-y divide-border">
             {[
               { priority: "1순위", items: "전문 지역 + 거래 유형, 지금 상담 가능 여부" },
@@ -48,7 +61,7 @@ const IndustryOverview = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="사이트 유형별 차이" subtitle="부동산 사이트의 5가지 대표 유형">
+        <SectionBlock id="site-types" title="사이트 유형별 차이" subtitle="부동산 사이트의 5가지 대표 유형">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               { type: "지역전문형", desc: "특정 지역의 매물·시세·생활권 정보 중심. 지역명이 사이트 전체에 반복 노출.", example: "마포구 아파트 전문 중개" },
@@ -67,7 +80,7 @@ const IndustryOverview = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="주거형 / 상업형 / 토지형 / 분양형 차이">
+        <SectionBlock id="property-types" title="주거형 / 상업형 / 토지형 / 분양형 차이">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -88,7 +101,7 @@ const IndustryOverview = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="전환이 발생하는 대표 흐름">
+        <SectionBlock id="conversion-flow" title="전환이 발생하는 대표 흐름">
           <div className="guide-card">
             <div className="space-y-4">
               <div>
@@ -119,7 +132,7 @@ const IndustryOverview = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="부동산 사이트에서 신뢰를 주는 요소">
+        <SectionBlock id="trust-elements" title="부동산 사이트에서 신뢰를 주는 요소">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
               "공인중개사 등록번호·자격 정보 공개",
@@ -139,7 +152,7 @@ const IndustryOverview = () => {
           </div>
         </SectionBlock>
 
-        <SectionBlock title="자주 실패하는 패턴" subtitle="부동산 사이트에서 반드시 피해야 할 구성">
+        <SectionBlock id="fail-patterns" title="자주 실패하는 패턴" subtitle="부동산 사이트에서 반드시 피해야 할 구성">
           <div className="space-y-3">
             {[
               { pattern: "지역·거래 전문 분야 불명확", desc: "방문자가 첫 화면에서 '여기가 내가 원하는 곳인지' 판단할 수 없음" },
