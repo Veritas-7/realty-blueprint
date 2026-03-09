@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { CommandSearch } from "@/components/CommandSearch";
+import { industryConfig } from "@/data/industry-config";
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {
   return (
