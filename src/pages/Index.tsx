@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { PageHeader } from "@/components/guide/PageHeader";
 import { SectionBlock } from "@/components/guide/SectionBlock";
+import { SummaryCard } from "@/components/guide/SummaryCard";
+import { QuickPoints } from "@/components/guide/QuickPoints";
 import { navItems } from "@/data/navigation";
 import { ArrowRight, Phone, MessageCircle, MapPin, Shield, TrendingUp, Users } from "lucide-react";
 
